@@ -1,13 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#define MAX 200                     // In the range of BFS, maze should not be too large
 
 typedef struct Node{
     int x, y;
     struct Node* next;
 }Node;
 
+// Literals
 Node* head = NULL;
 Node* tail = NULL;
+int n, m, xs, ys, xt, yt;
+int maze[MAX][MAX] = {0};
+int dx[] = {1, -1, 0, 0};
+int dy[] = {0, 0, 1, -1};
+
 
 Node* makeNode(int x, int y){
     Node* p = malloc(sizeof(Node));
@@ -33,16 +41,69 @@ Node* dequeue(){
     }
     Node* dequeueNode = head;
     head = head->next;
+    if (head == NULL){
+        tail = NULL;
+    }
     return dequeueNode;
 }
 
-int main(){
-    enqueue(makeNode(1,2));
-    enqueue(makeNode(2,5));
+bool isEmpty(){
+    return head == NULL && tail == NULL;
+}
 
-    dequeue();
-    Node* a = dequeue();
-    printf("%d %d",a->x, a->y);
-    printf("Hello World\n");
+bool isValid(int x, int y){
+    return x>=0 && x<n && y>=0 && y<m && maze[x][y]==0;
+}
+
+void init(){
+    printf("Please input number of rows, number of columns: ");
+    scanf("%d %d",&n, &m);
+
+    printf("Please input maze 0/1:\n");
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++){
+            scanf("%d",&maze[i][j]);
+        }
+    }
+
+    printf("Please input source position: ");
+    scanf("%d %d", &xs, &ys);
+
+    printf("Please input target position: ");
+    scanf("%d %d", &xt, &yt);
+}
+
+bool bfs(){
+    enqueue(makeNode(xs, ys));
+    maze[xs][ys] = 1;
+    while (!isEmpty()){
+        Node* dequeueNode = dequeue();
+        for (int i = 0; i < 4; i++){
+            int x = dequeueNode->x + dx[i];
+            int y = dequeueNode->y + dy[i];
+            if (isValid(x, y)){
+                maze[x][y] = 1;
+                if (x == xt && y == yt) return true;
+                enqueue(makeNode(x, y));
+            }
+        }
+    }
+    return false;
+}
+
+int main(){
+    init();
+
+    // Early check
+    if (xs==xt && ys==yt){
+        printf("Status: True - (Source = Target)\n");
+        return 0;
+    }
+    printf("BFS status: ");
+    if (bfs()){
+        printf("TRUE\n");
+    }else{
+        printf("FALSE\n");
+    }
     return 0;
 }
