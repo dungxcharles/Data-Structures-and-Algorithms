@@ -2,6 +2,7 @@
 *.out
 *.exe
 *.app
+BFS
 
 # object files
 *.o
