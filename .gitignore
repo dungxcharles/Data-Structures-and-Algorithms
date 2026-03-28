@@ -3,6 +3,7 @@
 *.exe
 *.app
 BFS
+CBus
 
 # object files
 *.o
