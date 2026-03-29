@@ -37,6 +37,15 @@ void mergeSort(int* arr, int left, int right){
 }
 
 int main(){
-    
+    int arr[] = {3,6,4,3,6,7,2,7,-24,-34,-45,-75,13,-46,324,-234,45,0,32,-324};
+    int n = sizeof(arr)/sizeof(int);
+    printf("Number of elements: %d\n",n);
+    mergeSort(arr, 0, n-1);
+
+    printf("The array after sorting:\n");
+    for (int i = 0; i < n; i++){
+        printf("%d ",arr[i]);
+    }
+    printf("\n");
     return 0;
 }
