@@ -4,6 +4,7 @@
 *.app
 BFS
 CBus
+mergeSort
 
 # object files
 *.o
