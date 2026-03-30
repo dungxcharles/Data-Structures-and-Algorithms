@@ -5,6 +5,7 @@
 BFS
 CBus
 mergeSort
+heapSort
 
 # object files
 *.o
