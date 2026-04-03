@@ -6,6 +6,8 @@ BFS
 CBus
 mergeSort
 heapSort
+sudokuSolver
+DFS
 
 # object files
 *.o
