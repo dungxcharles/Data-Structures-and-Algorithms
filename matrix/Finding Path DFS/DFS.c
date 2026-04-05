@@ -12,6 +12,7 @@ Pair makePair(int x, int y){
 }
 
 // Instances
+int cnt = 0;
 int n, m, xs, ys, xt, yt;
 int maze[MAX][MAX];
 Pair parent[MAX][MAX];
@@ -19,16 +20,15 @@ int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
 void input(){
-    printf("Input number of rows and columns:\n");
+    printf("Please input number of rows, number of columns, matrix (0/1), source, target respectively:\n");
     scanf("%d %d", &n, &m);
-    printf("Input maze:\n");
+
     for (int i = 0; i < n; i++){
         for (int j = 0; j < m; j++){
             scanf("%d",&maze[i][j]);
             parent[i][j] = makePair(-1, -1);
         }
     }
-    printf("Input source position and target position:\n");
     scanf("%d %d %d %d",&xs,&ys,&xt,&yt);
     maze[xs][ys] = 1;
 }
@@ -48,6 +48,7 @@ bool dfs(Pair node){
         if (isValid(child)){
             parent[x][y] = makePair(node.x, node.y);
             maze[x][y] = 1;
+            cnt++;
             if (dfs(child)){
                 return true;
             }
@@ -89,6 +90,7 @@ int main(){
     input();
     bool check = dfs(makePair(xs, ys));
     printf("Finding status: %s\n", (check ? "True" : "False"));
+    printf("The number of nodes visited: %d\n", cnt);
 
     if (check){
         printf("Path found by DFS:\n");

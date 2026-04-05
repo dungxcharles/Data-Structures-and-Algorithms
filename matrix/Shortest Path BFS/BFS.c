@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#define MAX 200                     // In the range of BFS, maze should not be too large
+#define MAX 500                     // In the range of BFS, maze should not be too large
 
 typedef struct Pair{
     int x, y;
@@ -13,6 +13,7 @@ typedef struct Node{
 }Node;
 
 // Literals
+int cnt = 0;
 Node* head = NULL;
 Node* tail = NULL;
 int n, m, xs, ys, xt, yt;
@@ -66,10 +67,9 @@ bool isValid(int x, int y){
 }
 
 void init(){
-    printf("Please input number of rows, number of columns: ");
+    printf("Please input number of rows, number of columns, matrix (0/1), source, target respectively\n");
     scanf("%d %d",&n, &m);
 
-    printf("Please input maze 0/1:\n");
     for (int i = 0; i < n; i++){
         for (int j = 0; j < m; j++){
             scanf("%d",&maze[i][j]);
@@ -77,10 +77,8 @@ void init(){
         }
     }
 
-    printf("Please input source position: ");
     scanf("%d %d", &xs, &ys);
 
-    printf("Please input target position: ");
     scanf("%d %d", &xt, &yt);
 }
 
@@ -94,6 +92,7 @@ bool bfs(){
             int y = dequeueNode->y + dy[i];
             if (isValid(x, y)){
                 maze[x][y] = 1;
+                cnt++;
                 parent[x][y] = makePair(dequeueNode->x, dequeueNode->y);
                 if (x == xt && y == yt) return true;
                 enqueue(makeNode(x, y));
@@ -139,6 +138,7 @@ int main(){
     }else{
         printf("FALSE\n");
     }
+    printf("The number of visited nodes: %d\n",cnt);
 
     if (checkFlag){
         printf("The shortest path:\n");
