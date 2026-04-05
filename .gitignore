@@ -2,6 +2,7 @@
 *.out
 *.exe
 *.app
+*.class
 BFS
 CBus
 mergeSort
