@@ -43,10 +43,6 @@ void input(){
         scanf("%d %d",&rect[i].first, &rect[i].second);
     }
     bubbleSort();
-    // printf("hello\n");
-    // for (int i = 0; i < n; i++){
-    //     printf("%d %d\n",rect[i].first, rect[i].second);
-    // }
 }
 
 void printSolution(){
