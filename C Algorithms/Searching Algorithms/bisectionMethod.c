@@ -1,5 +1,6 @@
 #include <stdio.h>
-#define EPSILON 0.00000001
+#include <math.h>
+const double EPSILON = 0.00000001;
 
 double f(double x){
     return x*x-2;
@@ -11,10 +12,10 @@ void bisection_method(double start, double end, double epsilon, double(*func)(do
         return;
     }
 
-    float b = 0;
+    double b = 0;
     while (1){
         b = (start + end)/2;
-        if (func(b) <= epsilon){
+        if (fabs(func(b)) <= epsilon){
             break;
         }
         if (func(start)*func(b) < 0){
@@ -28,6 +29,6 @@ void bisection_method(double start, double end, double epsilon, double(*func)(do
 }
 
 int main(){
-
+    bisection_method(-1, 5, EPSILON, f);
     return 0;
 }
